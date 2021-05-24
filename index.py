@@ -62,7 +62,7 @@ def show_price():
     datetime_lasmin = (datetime.now() - timedelta(minutes=1)).strftime('%Y-%m-%d %H:%M:%S')
 
     draw.rectangle((0, 0, disp.width, disp.height), outline=0, fill=0)
-    draw.text((0,0), "PRICE BITCOIN", font=font, fill=255)
+    draw.text((0,0), "    PRICE BITCOIN", font=font, fill=255)
     y=0
     for name in names:
         prices_arr = get_price(name, datetime_lasmin, datetime_now)
