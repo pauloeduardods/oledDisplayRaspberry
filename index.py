@@ -108,12 +108,17 @@ def loop():
         seconds_now = int(time.time() % 60)
         while True:
             show_stats()
-            if int(time.time() % 60) - seconds_now >= 5: break
+            if int(time.time() % 60) - seconds_now >= 6: break
         btc_price() 
 
     def btc_price():
         disp.image(bitcoin_logo)
         disp.show()
         time.sleep(2)
+        show_price()
+        time.sleep(6)
+        stats()
+        
+    stats()
 
 
