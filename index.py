@@ -42,13 +42,21 @@ def get_price(name, date_start, date_end):
         disp.image(image)
         disp.show()
         print(f"Error connecting to MariaDB Platform: {e}")
-        sys.exit(1)
+        #sys.exit(1)
     cur = conn.cursor()
     response = []
     cmd = f"SELECT price FROM {os.getenv('BTCBOT_SQLDATABASE')}.price WHERE name = '{name}' AND datetime >= '{date_start}' AND datetime <= '{date_end}'"
-    cur.execute(cmd)
-    for elements in cur:
-        response.append(elements[0])
+    try:
+        cur.execute(cmd)
+        for elements in cur:
+            response.append(elements[0])
+    except mariadb.Error as e:
+        draw.rectangle((0, 0, disp.width, disp.height), outline=0, fill=0)
+        draw.text((0, 0), "!!!SQLERROR EXECUTING!!!", font=font, fill=255)
+        draw.text((0, 12), e, font=font, fill=255)
+        disp.image(image)
+        disp.show()
+        print(f"Error in execute: {e}")
     conn.close()
     return response
 
@@ -62,7 +70,7 @@ def show_price():
     datetime_lasmin = (datetime.now() - timedelta(minutes=1)).strftime('%Y-%m-%d %H:%M:%S')
 
     draw.rectangle((0, 0, disp.width, disp.height), outline=0, fill=0)
-    draw.text((0,0), "PRICE BITCOIN", font=font, fill=255)
+    draw.text((0,0), "    PRICE BITCOIN", font=font, fill=255)
     y=0
     for name in names:
         prices_arr = get_price(name, datetime_lasmin, datetime_now)
