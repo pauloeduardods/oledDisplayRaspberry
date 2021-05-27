@@ -1,0 +1,14 @@
+[Unit]
+Description=OLED Display 4 Raspberry
+After=network.target
+StartLimitInterval=5
+
+[Service]
+EnvironmentFile=/path/to/.env
+ExecStart=python3 index.py
+WorkingDirectory=/path/to/oleddisplayraspberry
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
