@@ -1,0 +1,3 @@
+sudo apt install libmariadb3 libmariadb-dev
+sudo pip3 install mariadb
+sudo pip3 install adafruit-circuitpython-ssd1306
